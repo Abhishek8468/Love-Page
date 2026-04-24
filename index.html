@@ -60,7 +60,9 @@ button:hover {
   </p>
 
   <!-- MUSIC BUTTON -->
-  <button id="musicBtn">❤️ Tap here first</button>
+  <button onclick="playMusic()" id="musicBtn">
+    ❤️ Tap here to start music
+  </button>
 
   <!-- OPTIONS -->
   <button onclick="reply('yes')">Yes, I’d love to ❤️</button>
@@ -71,17 +73,17 @@ button:hover {
 </div>
 
 <!-- AUDIO -->
-<audio id="music" preload="auto" loop>
-  <source src="love.mp3">
+<audio id="music" preload="auto" loop playsinline>
+  <source src="love.mp3" type="audio/mp3">
 </audio>
 
 <script>
-/* MUSIC FIX */
-const music = document.getElementById("music");
-const btn = document.getElementById("musicBtn");
+/* MUSIC FUNCTION */
+function playMusic() {
+  const music = document.getElementById("music");
+  const btn = document.getElementById("musicBtn");
 
-btn.addEventListener("click", function () {
-  music.muted = false;
+  music.load();
 
   music.play().then(() => {
     btn.innerText = "🎵 Music Playing...";
@@ -89,25 +91,25 @@ btn.addEventListener("click", function () {
   }).catch(() => {
     alert("Tap again to play music 🎵");
   });
-});
+}
 
 /* BUTTON LOGIC */
 function reply(answer) {
   let message = "";
 
   if (answer === "yes") {
-    message = "Thank you very much beautiful. You are just Ummhhaa, Please share the date to me. ❤️";
+    message = "You just made Abhishek the happiest ❤️";
     setTimeout(() => {
       window.location.href = "https://wa.me/";
     }, 2000);
   }
 
   if (answer === "maybe") {
-    message = "Faaahhhhh… I’ll wait for your yes 😌";
+    message = "Hmm… I’ll wait for your yes 😌";
   }
 
   if (answer === "no") {
-    message = "Chala ja bsdk";
+    message = "Are you sure? 😢 I’ll still wait for you ❤️";
   }
 
   document.getElementById("response").innerText = message;
