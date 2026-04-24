@@ -39,7 +39,6 @@ button:hover {
 #response {
   margin-top: 20px;
   font-weight: bold;
-  color: #333;
 }
 </style>
 </head>
@@ -48,7 +47,6 @@ button:hover {
 
 <div class="card">
   <h2>Hey Kirti ❤️</h2>
-
   <p>From Abhishek 💌</p>
 
   <p>
@@ -61,6 +59,10 @@ button:hover {
     I mean… can you go on a date with me at <b>Khatu Shyam</b> in June? 😊
   </p>
 
+  <!-- MUSIC BUTTON -->
+  <button id="musicBtn">❤️ Tap here first</button>
+
+  <!-- OPTIONS -->
   <button onclick="reply('yes')">Yes, I’d love to ❤️</button>
   <button onclick="reply('maybe')">Maybe 😌</button>
   <button onclick="reply('no')">No 😢</button>
@@ -68,35 +70,44 @@ button:hover {
   <div id="response"></div>
 </div>
 
-<!-- MUSIC -->
-<audio id="music" loop>
-  <source src="https://www.bensound.com/bensound-music/bensound-romantic.mp3" type="audio/mp3">
+<!-- AUDIO -->
+<audio id="music" preload="auto" loop>
+  <source src="https://www.soundhelix.com/examples/mp3/SoundHelix-Song-1.mp3" type="audio/mp3">
 </audio>
 
-<br>
-<button onclick="startMusic()">Tap to play music 🎵</button>
-
 <script>
-function startMusic() {
-  document.getElementById("music").play();
-}
+/* MUSIC FIX */
+const music = document.getElementById("music");
+const btn = document.getElementById("musicBtn");
 
+btn.addEventListener("click", function () {
+  music.muted = false;
+
+  music.play().then(() => {
+    btn.innerText = "🎵 Music Playing...";
+    btn.disabled = true;
+  }).catch(() => {
+    alert("Tap again to play music 🎵");
+  });
+});
+
+/* BUTTON LOGIC */
 function reply(answer) {
   let message = "";
 
   if (answer === "yes") {
-    message = "You just made Abhishek the happiest ❤️";
+    message = "Thank you very much beautiful. You are just Ummhhaa, Please share the date to me. ❤️";
     setTimeout(() => {
-      window.location.href = "https://wa.me/"; // opens WhatsApp
+      window.location.href = "https://wa.me/";
     }, 2000);
   }
 
   if (answer === "maybe") {
-    message = "Hmm… I’ll wait for your yes 😌";
+    message = "Faaahhhhh… I’ll wait for your yes 😌";
   }
 
   if (answer === "no") {
-    message = "Are you sure? 😢 I’ll still wait for you ❤️";
+    message = "Chala ja bsdk";
   }
 
   document.getElementById("response").innerText = message;
